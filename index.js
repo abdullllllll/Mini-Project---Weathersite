@@ -25,7 +25,7 @@ const getTime = (lat, lon) => {
     )
       .then(response => response.json())
       .then((data) => {
-        let timeString = data.day_of_week + ", " + data.hour + ":" + data.minute;
+        let timeString = `${data.day_of_week}, ${data.hour}:${data.minute}\n${data.day}/${data.month}/${data.year}`
         return timeString;
     });   
 }
@@ -44,6 +44,7 @@ const forecast = (city) => {
             const icon = document.createElement("img")
             const forecastDay = document.createElement("div")
             forecastDay.classList.add("forecastItem")
+            
             forecastDay.innerHTML = `${perday.date}<br>`
             icon.src = `https://${perday.day.condition.icon}`
             forecastDay.appendChild(icon)
