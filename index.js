@@ -29,7 +29,21 @@ const getTime = (lat, lon) => {
         return timeString;
     });   
 }
+const convertDateFormat = (inputDate) =>  {
+    const dateComponents = inputDate.split('-');
+  
+    if (dateComponents.length !== 3) {
+      return 'Invalid date format';
+    }
 
+    const year = dateComponents[0];
+    const month = dateComponents[1];
+    const day = dateComponents[2];
+  
+    const newDateFormat = `${day}/${month}`;
+  
+    return newDateFormat;
+  }
 const forecast = (city) => {
     const days = 5
     fetch(`https://api.weatherapi.com/v1/forecast.json?key=${ForecastAPIKEY}&q=${city}&days=${days}&aqi=no&alerts=no`)
@@ -44,8 +58,7 @@ const forecast = (city) => {
             const icon = document.createElement("img")
             const forecastDay = document.createElement("div")
             forecastDay.classList.add("forecastItem")
-            
-            forecastDay.innerHTML = `${perday.date}<br>`
+            forecastDay.innerHTML = `${convertDateFormat(perday.date)}<br>`
             icon.src = `https://${perday.day.condition.icon}`
             forecastDay.appendChild(icon)
             forecastDay.appendChild(document.createTextNode(`${Math.round(perday.day.avgtemp_c)}°C`))
