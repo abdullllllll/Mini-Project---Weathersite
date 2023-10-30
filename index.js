@@ -78,7 +78,7 @@ const fetchWeather = () => {
 
     if (city === '')
         return;
-        fetch(`http://api.weatherapi.com/v1/current.json?key=${ForecastAPIKEY}&q=${city}&aqi=no`)
+        fetch(`https://api.weatherapi.com/v1/current.json?key=${ForecastAPIKEY}&q=${city}&aqi=no`)
         .then(response => response.json())
         .then(json => {
             if (json.cod === '404') {
@@ -91,7 +91,7 @@ const fetchWeather = () => {
             }
             error404.style.display = 'none';
             error404.classList.remove('fadeIn');
-            
+
             const image = document.querySelector('.weather-box img');
             const temperature = document.querySelector('.weather-box .temperature');
             const description = document.querySelector('.weather-box .description');
