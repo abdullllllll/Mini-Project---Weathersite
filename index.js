@@ -1,10 +1,18 @@
 const container = document.querySelector('.container');
-const search = document.querySelector('.search-box button');
+const search_button = document.querySelector('.search-box button');
 const weatherBox = document.querySelector('.weather-box');
 const weatherDetails = document.querySelector('.weather-details');
 const error404 = document.querySelector('.not-found');
 
 const time = document.querySelector(".time");
+
+document.title = "Weather Site"
+
+let link = document.createElement('link')
+link.type = 'image/x-icon'
+link.rel = 'icon'
+link.href = "/fav.png"
+document.getElementsByTagName('head')[0].appendChild(link)
 
 let lat = 0
 let lon = 0
@@ -67,14 +75,14 @@ const forecast = (city) => {
     })
 }
 
-search.addEventListener('click', () => {
+const fetchWeather = () => {
     const TimeAPIKEY = '2a64c91406b046f795bd957dd5b5e902';
     const city = document.querySelector('.search-box input').value;
 
     if (city === '')
         return;
 
-    fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${WeatherAPIKEY}`)
+    fetch(`http://api.weatherapi.com/v1/current.json?key=${ForecastAPIKEY}&q=${city}&aqi=no`)
         .then(response => response.json())
         .then(json => {
             if (json.cod === '404') {
@@ -95,8 +103,8 @@ search.addEventListener('click', () => {
             const humidity = document.querySelector('.weather-details .humidity span');
             const wind = document.querySelector('.weather-details .wind span');
 
-            lat = json.coord.lat
-            lon = json.coord.lon
+            lat = json.location.lat
+            lon = json.location.lon
 
             getTime(lat, lon)
             .then((timeString) => {
@@ -105,13 +113,19 @@ search.addEventListener('click', () => {
 
             forecast(city)
             
-            image.src = `https://openweathermap.org/img/wn/${json.weather[0].icon}@4x.png`;
-            document.body.style.backgroundImage = `url('https://source.unsplash.com/800x600/?${json.name}')`;
+            image.src = `https://${json.current.condition.icon}`;
 
-            temperature.innerHTML = `${parseInt(json.main.temp)}<span>°C</span>`;
-            description.innerHTML = json.weather[0].description;
-            humidity.innerHTML = `${json.main.humidity}%`;
-            wind.innerHTML = `${parseInt(json.wind.speed)}Km/h`;
+            link.href = `https://${json.current.condition.icon}`
+            document.getElementsByTagName('head')[0].appendChild(link)
+
+            document.title = `${json.location.name} - ${parseInt(json.current.temp_c)}°C`
+            
+            document.body.style.backgroundImage = `url('https://source.unsplash.com/1200x700/?${json.location.name}')`;
+
+            temperature.innerHTML = `${parseInt(json.current.temp_c)}<span>°C</span>`;
+            description.innerHTML = json.current.condition.text;
+            humidity.innerHTML = `${json.current.humidity}%`;
+            wind.innerHTML = `${parseInt(json.current.wind_kph)}Km/h`;
 
             weatherBox.style.display = '';
             weatherDetails.style.display = '';
@@ -119,60 +133,12 @@ search.addEventListener('click', () => {
             weatherDetails.classList.add('fadeIn');
             container.style.height = '590px';
         });
-});
+}
+
+search_button.addEventListener('click', fetchWeather);
 
 document.querySelector(".search-input").addEventListener("keyup", (event) => {
     if (event.key == "Enter" || event.key == 'Shift') {
-        const TimeAPIKEY = '2a64c91406b046f795bd957dd5b5e902';
-        const city = document.querySelector('.search-box input').value;
-
-    if (city === '')
-        return;
-
-    fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${WeatherAPIKEY}`)
-        .then(response => response.json())
-        .then(json => {
-            if (json.cod === '404') {
-                container.style.height = '400px';
-                weatherBox.style.display = 'none';
-                weatherDetails.style.display = 'none';
-                error404.style.display = 'block';
-                error404.classList.add('fadeIn');
-                return;
-            }
-
-            error404.style.display = 'none';
-            error404.classList.remove('fadeIn');
-
-            const image = document.querySelector('.weather-box img');
-            const temperature = document.querySelector('.weather-box .temperature');
-            const description = document.querySelector('.weather-box .description');
-            const humidity = document.querySelector('.weather-details .humidity span');
-            const wind = document.querySelector('.weather-details .wind span');
-
-            lat = json.coord.lat
-            lon = json.coord.lon
-
-            getTime(lat, lon)
-            .then((timeString) => {
-                document.querySelector(".date").innerText = timeString;
-            });
-
-            forecast(city)
-            
-            image.src = `https://openweathermap.org/img/wn/${json.weather[0].icon}@4x.png`;
-            document.body.style.backgroundImage = `url('https://source.unsplash.com/800x600/?${json.name}')`;
-
-            temperature.innerHTML = `${parseInt(json.main.temp)}<span>°C</span>`;
-            description.innerHTML = json.weather[0].description;
-            humidity.innerHTML = `${json.main.humidity}%`;
-            wind.innerHTML = `${parseInt(json.wind.speed)}Km/h`;
-
-            weatherBox.style.display = '';
-            weatherDetails.style.display = '';
-            weatherBox.classList.add('fadeIn');
-            weatherDetails.classList.add('fadeIn');
-            container.style.height = '590px';
-        });
+        fetchWeather();
     }
 })

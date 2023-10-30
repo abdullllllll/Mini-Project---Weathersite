@@ -97,8 +97,9 @@ body{
 }
 
 .weather-box img{
-    width: 60%;
-    margin-top: 0px;
+    width: 50%;
+    margin-top: 15px;
+    object-fit: cover;
 }
 
 .weather-box .temperature{
