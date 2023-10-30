@@ -1,0 +1,237 @@
+*{
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: none;
+    box-sizing: border-box;
+}
+
+body{
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #626262;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    user-select: none;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
+}
+
+.container{
+    position: relative;
+    width: 400px;
+    height: 90px;
+    background: #fff;
+    padding: 20px 32px;
+    margin-top: 20px;
+    overflow: hidden;
+    border-radius: 18px;
+    font-family: 'Roboto', sans-serif;
+    transition: 1s ease-out;
+    background: linear-gradient(45deg, rgba(40, 51, 50, 0.30), rgba(15, 15, 15, 0.30));
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow: 0 8px 32px 0 rgba(0 , 0, 0, 0.37);
+}
+
+.search-box{
+    width: 100%;
+    height: min-content;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.search-box input{
+    color: #cfcfcf;
+    width: 80%;
+    font-size: 24px;
+    font-weight: 500;
+    text-transform: uppercase;
+    padding-left: 32px;
+    background: none;
+}
+
+.search-box input::placeholder{
+    font-size: 20px;
+    font-weight: 500;
+    color: #06283D;
+    text-transform: capitalize;
+}
+
+.search-box button{
+    cursor: pointer;
+    width: 50px;
+    height: 50px;
+    color: #06283D;
+    background: #dff6ff;
+    border-radius: 50%;
+    font-size: 22px;
+    transition: 0.4s ease;
+}
+
+.search-box button:hover{
+    color: #fff;
+    background: #06283D;
+}
+
+.search-box i{
+    position: absolute;
+    color: #cfcfcf;
+    font-size: 28px;
+}
+
+.weather-box{
+    text-align: center;
+}
+
+.weather-box img{
+    width: 60%;
+    margin-top: 0px;
+}
+
+.weather-box .temperature{
+    position: relative;
+    color: #cfcfcf;
+    font-size: 4rem;
+    font-weight: 800;
+    margin-top: 0;
+    margin-left: -16px;
+}
+
+.weather-box .temperature span{
+    position: absolute;
+    margin-left: 4px;
+    font-size: 1.5rem;
+}
+
+.weather-box .description{
+    color: #cfcfcf;
+    font-size: 22px;
+    font-weight: 500;
+    text-transform: capitalize;
+}
+
+.weather-details{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+}
+
+.weather-details .humidity, .weather-details .wind{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin-top: 30px;
+}
+
+.weather-details .humidity{
+    padding-left: 20px;
+    justify-content: flex-start;
+}
+
+.weather-details .wind{
+    padding-right: 20px;
+    justify-content: flex-end;
+}
+
+.weather-details i{
+    color: #cfcfcf;
+    font-size: 26px;
+    margin-right: 10px;
+    margin-top: 6px;
+}
+
+.weather-details span{
+    color: #cfcfcf;
+    font-size: 22px;
+    font-weight: 500;
+}
+
+.weather-details p{
+    color: #cfcfcf;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.not-found{
+    width: 100%;
+    text-align: center;
+    margin-top: 50px;
+    scale: 0;
+    opacity: 0;
+    display: none;
+}
+
+.not-found p{
+    color: #cfcfcf;
+    font-size: 22px;
+    font-weight: 500;
+    margin-top: 12px;
+}
+
+.weather-box, .weather-details{
+    scale: 0;
+    opacity: 0;
+}
+
+.fadeIn{
+    animation: 0.5s fadeIn forwards;
+    animation-delay: 0.5s;
+}
+
+@keyframes fadeIn{
+    to {
+        scale: 1;
+        opacity: 1;
+    }
+}
+
+.forecast {
+    display: flex;
+    flex-direction: row;
+}
+
+.forecastItem {
+    transition: 1s ease-out;
+    background: linear-gradient(45deg, rgba(40, 51, 50, 0.30), rgba(15, 15, 15, 0.30));
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow: 0 8px 32px 0 rgba(0 , 0, 0, 0.37);
+    border-radius: 10px;
+    padding: 10px;
+    width: 100px;
+    margin: 10px;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.forecastHour {
+    color: #cfcfcf;
+}
+
+div {
+    color: #cfcfcf;
+    font-size: 1rem;
+    font-weight: 500;
+    font-family: 'Roboto', sans-serif;
+}
+
+.date {
+    font-size: 1.4rem;
+    color: #cfcfcf;
+    margin-top: 20px
+}
