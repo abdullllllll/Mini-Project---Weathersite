@@ -17,7 +17,6 @@ document.getElementsByTagName('head')[0].appendChild(link)
 let lat = 0
 let lon = 0
 
-const WeatherAPIKEY = '1d2b8d61e2e14e5b68b209624475cbd5';
 const ForecastAPIKEY = '5d2d22910af84a128e3172912232910';
 const getTime = (lat, lon) => {
     return fetch(
@@ -81,17 +80,6 @@ const fetchWeather = () => {
         fetch(`https://api.weatherapi.com/v1/current.json?key=${ForecastAPIKEY}&q=${city}&aqi=no`)
         .then(response => response.json())
         .then(json => {
-            if (json.cod === '404') {
-                container.style.height = '400px';
-                weatherBox.style.display = 'none';
-                weatherDetails.style.display = 'none';
-                error404.style.display = 'block';
-                error404.classList.add('fadeIn');
-                return;
-            }
-            error404.style.display = 'none';
-            error404.classList.remove('fadeIn');
-
             const image = document.querySelector('.weather-box img');
             const temperature = document.querySelector('.weather-box .temperature');
             const description = document.querySelector('.weather-box .description');
@@ -110,6 +98,7 @@ const fetchWeather = () => {
             image.src = `https://${json.current.condition.icon}`;
             link.href = `https://${json.current.condition.icon}`
             document.getElementsByTagName('head')[0].appendChild(link)
+            document.title = `${json.location.name} - ${parseInt(json.current.temp_c)}°C`;
             document.body.style.backgroundImage = `url('https://source.unsplash.com/1200x700/?${json.location.name}')`;
 
             temperature.innerHTML = `${parseInt(json.current.temp_c)}<span>°C</span>`;
