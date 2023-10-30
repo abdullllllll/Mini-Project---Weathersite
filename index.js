@@ -11,7 +11,7 @@ document.title = "Weather Site"
 let link = document.createElement('link')
 link.type = 'image/x-icon'
 link.rel = 'icon'
-link.href = "/fav.png"
+link.href = "https://github.com/abdullllllll/Mini-Project-WeatherSite/blob/ea57c854fffbf1502d5ceef942ea71c15708c7b4/fav.png?raw=true"
 document.getElementsByTagName('head')[0].appendChild(link)
 
 let lat = 0
