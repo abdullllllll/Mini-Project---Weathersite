@@ -74,11 +74,7 @@ search.addEventListener('click', () => {
     if (city === '')
         return;
 
-<<<<<<< HEAD
     fetch(`https://api.weatherapi.com/v1/current.json?key=${ForecastAPIKEY}&q=${city}&aqi=no`)
-=======
-    fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${WeatherAPIKEY}`)
->>>>>>> parent of 660e643 (made visual changes and avoided code repetetion)
         .then(response => response.json())
         .then(json => {
             if (json.cod === '404') {
